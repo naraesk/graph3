@@ -1,0 +1,86 @@
+<html>
+<head>
+  <title></title>
+  <meta content="">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    /* Create three equal columns that floats next to each other */
+    .column {
+      float: left;
+      width: 33.33%;
+      height: 100%;
+      border:2px solid black;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+    h1 {
+      text-align: center;
+    }
+  </style>
+  <script>
+    var images=[null, null, null];
+
+    function initialize () {
+
+      const min = 1;
+      const max = 11;
+
+      images[0] = getRandomInt(min, max);
+      images[1] = images[0];
+      images[2] = images[0];
+      while(images[0] === images[1]) {
+        images[1] = getRandomInt(min, max)
+      }
+      while(images[2] === images[1] || images[2] === images[0]) {
+        images[2] = getRandomInt(min, max)
+      }
+
+      images.forEach(function(value, key) {
+        console.log("New visualization " + key + ": Graph " + value);
+      });
+    }
+
+    initialize();
+
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function includeImage(id) {
+      var div = document.getElementById("c" + id);
+      var img = document.createElement("IMG");
+      img.src = "graph "+images[id]+".svg"
+      img.setAttribute("height", "90%");
+      img.setAttribute("width", "100%");
+      div.appendChild(img);
+    }
+
+  </script>
+</head>
+<body>
+<div class="row">
+  <div class="column" id ="c0">
+    <h1>Graph 1</h1>
+    <script>includeImage("0")</script>
+  </div>
+  <div class="column" id ="c1">
+    <h1>Graph 2</h1>
+    <script>includeImage("1")</script>
+  </div>
+  <div class="column" id ="c2">
+    <h1>Graph 3</h1>
+    <script>includeImage("2")</script>
+  </div>
+</div>
+</body>
+</html>
